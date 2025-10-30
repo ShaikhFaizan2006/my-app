@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import { FileText, Calendar, AlertCircle, LogOut, HelpCircle, ChevronDown, FileImage } from 'lucide-react';
+import { FileText, Calendar, AlertCircle, LogOut, HelpCircle, ChevronDown, FileImage, CheckCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
@@ -12,72 +12,90 @@ const LipiBookDashboard = () => {
   const [selectedLocation, setSelectedLocation] = useState('Pune, Maharashtra');
   const [showPeriodDropdown, setShowPeriodDropdown] = useState(false);
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const periods = ['This Month', 'Last Month', 'This Quarter', 'This Year'];
   const locations = ['Pune, Maharashtra', 'Mumbai, Maharashtra', 'Delhi', 'Bangalore, Karnataka'];
+
+  // Report submission handler
+  const handleReport = () => {
+    if (reportTitle && reportDescription) {
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+        setReportTitle('');
+        setReportDescription('');
+      }, 5000);
+    }
+  };
+
   const router = useRouter();
 
-   const handlelogout = () => {
+  const handlelogout = () => {
     router.push('/commitee-login');
   };
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#F5E6D3' }}>
+      {/* Success Notification */}
+     {showSuccess && (
+  <div className="fixed top-30 right-6 bg-green-600 text-white px-6 py-3 rounded-full flex items-center gap-2 shadow-lg z-50">
+    <CheckCircle className="w-5 h-5 text-white" />
+    <span>Report submitted successfully!</span>
+  </div>
+)}
+
+
+
       {/* Header */}
-            <header className="px-4 py-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F5E6D3' }}>
-             <div className="flex items-center justify-between">
-               <div className="flex items-center gap-2 sm:gap-4">
-                 <Image
-                   src="/images/rgstc.png"
-                   alt="Play Icon"
-                   width={48}
-                   height={48}
-                   className="w-12 h-12 sm:w-16 sm:h-16"
-                 />
-               </div>
-               <h1 className="text-sm sm:text-xl lg:text-2xl xl:text-3xl font-bold text-center flex-1 px-2 sm:px-4">
-                 RGSTC MUMBAI IN COLLABORATION WITH VIT, PUNE
-               </h1>
-               <Image
-                 src="/images/VIT.png"
-                 alt="Shield Icon"
-                 width={48}
-                 height={48}
-                 className="w-12 h-12 sm:w-16 sm:h-16"
-               />
-             </div>
-           </header>
+      <header className="w-full px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between bg-[#F5E6D3] border-b border-[#d4c4b0] flex-shrink-0">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <Image
+            src="/images/rgstc.png"
+            alt="RGSTC Logo"
+            width={50}
+            height={50}
+            className="w-12 h-12 sm:w-14 sm:h-14"
+          />
+        </div>
+        <h1 className="flex-1 text-center text-black text-lg sm:text-xl lg:text-2xl font-bold px-2 sm:px-4">
+          RGSTC MUMBAI IN COLLABORATION WITH VIT, PUNE
+        </h1>
+        <Image
+          src="/images/VIT.png"
+          alt="VIT Logo"
+          width={50}
+          height={50}
+          className="w-12 h-12 sm:w-14 sm:h-14"
+        />
+      </header>
 
       <div className="flex flex-col lg:flex-row flex-1">
         {/* Sidebar */}
         <aside className="w-full lg:w-56 xl:w-64 p-4 lg:p-6" style={{ backgroundColor: '#F5E6D3' }}>
           <div className="mb-8 flex justify-center lg:justify-start">
             <div className="text-center lg:text-left">
-            <div className="inline-block">
+              <div className="inline-block">
                 <div className="flex justify-center items-center mb-8">
-            <div className="inline-block">
-                <Image
-                src="/images/lipibook.png"
-                alt="LipiBook Logo"
-                width={100}
-                height={100}
-                className="w-20 h-20 sm:w-24 sm:h-24"
-                priority
-                />
-            </div>
-            </div>
-            </div>
+                  {/* Logo */}
+                  <div className="text-center mb-4 sm:mb-6">
+                    <Image
+                      src="/images/lipibook.png"
+                      alt="LipiBook Logo"
+                      width={120}
+                      height={100}
+                      className="mx-auto w-auto h-auto"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           <nav className="space-y-1">
             <button
               onClick={() => setActiveTab('summary')}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 text-sm sm:text-base ${
-                activeTab === 'summary'
-                  ? 'font-semibold'
-                  : ''
-              }`}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 text-sm sm:text-base ${activeTab === 'summary' ? 'font-semibold' : ''}`}
               style={{ color: '#000000' }}
             >
               <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -86,11 +104,7 @@ const LipiBookDashboard = () => {
 
             <button
               onClick={() => setActiveTab('updates')}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 text-sm sm:text-base ${
-                activeTab === 'updates'
-                  ? 'font-semibold'
-                  : ''
-              }`}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 text-sm sm:text-base ${activeTab === 'updates' ? 'font-semibold' : ''}`}
               style={{ color: '#000000' }}
             >
               <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -99,11 +113,7 @@ const LipiBookDashboard = () => {
 
             <button
               onClick={() => setActiveTab('report')}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 text-sm sm:text-base ${
-                activeTab === 'report'
-                  ? 'font-semibold'
-                  : ''
-              }`}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 text-sm sm:text-base ${activeTab === 'report' ? 'font-semibold' : ''}`}
               style={{ color: '#000000' }}
             >
               <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -129,11 +139,11 @@ const LipiBookDashboard = () => {
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                 {/* Total Transactions */}
-                <div className="rounded-lg p-5 sm:p-6 relative" style={{ backgroundColor: '#F5E6D3', border: '1px solid #D4A574' }}>
-                  <h3 className="text-lg sm:text-xl font-bold mb-3">Total Transactions</h3>
-                  
+                <div className="rounded-lg p-4 relative" style={{ backgroundColor: '#F5E6D3', border: '1px solid #D4A574' }}>
+                  <h3 className="text-base font-bold mb-2">Total Transactions</h3>
+
                   {/* Period Dropdown */}
                   <div className="relative mb-1">
                     <button
@@ -143,8 +153,8 @@ const LipiBookDashboard = () => {
                       }}
                       className="flex items-center gap-2 hover:opacity-70 transition-opacity"
                     >
-                      <span className="text-xs sm:text-sm">{selectedPeriod}</span>
-                      <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <span className="text-xs">{selectedPeriod}</span>
+                      <ChevronDown className="w-3 h-3" />
                     </button>
                     {showPeriodDropdown && (
                       <div className="absolute top-full left-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-10 min-w-[150px]">
@@ -155,7 +165,7 @@ const LipiBookDashboard = () => {
                               setSelectedPeriod(period);
                               setShowPeriodDropdown(false);
                             }}
-                            className="block w-full text-left px-3 py-2 text-xs sm:text-sm hover:bg-gray-100 transition-colors"
+                            className="block w-full text-left px-3 py-2 text-xs hover:bg-gray-100 transition-colors"
                           >
                             {period}
                           </button>
@@ -163,9 +173,9 @@ const LipiBookDashboard = () => {
                       </div>
                     )}
                   </div>
-                  
+
                   {/* Location Dropdown */}
-                  <div className="relative mb-8 sm:mb-12">
+                  <div className="relative mb-4">
                     <button
                       onClick={() => {
                         setShowLocationDropdown(!showLocationDropdown);
@@ -173,8 +183,8 @@ const LipiBookDashboard = () => {
                       }}
                       className="flex items-center gap-2 hover:opacity-70 transition-opacity"
                     >
-                      <span className="text-xs sm:text-sm">{selectedLocation}</span>
-                      <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <span className="text-xs">{selectedLocation}</span>
+                      <ChevronDown className="w-3 h-3" />
                     </button>
                     {showLocationDropdown && (
                       <div className="absolute top-full left-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-10 min-w-[180px]">
@@ -185,7 +195,7 @@ const LipiBookDashboard = () => {
                               setSelectedLocation(location);
                               setShowLocationDropdown(false);
                             }}
-                            className="block w-full text-left px-3 py-2 text-xs sm:text-sm hover:bg-gray-100 transition-colors"
+                            className="block w-full text-left px-3 py-2 text-xs hover:bg-gray-100 transition-colors"
                           >
                             {location}
                           </button>
@@ -193,26 +203,26 @@ const LipiBookDashboard = () => {
                       </div>
                     )}
                   </div>
-                  
-                  <div className="text-5xl sm:text-6xl lg:text-7xl font-normal text-right">200</div>
+
+                  <div className="text-4xl font-normal text-right">200</div>
                 </div>
 
                 {/* Total MODISCRIPT DOCX */}
-                <div className="rounded-lg p-5 sm:p-6" style={{ backgroundColor: '#F5E6D3', border: '1px solid #D4A574' }}>
-                  <h3 className="text-lg sm:text-xl font-bold mb-8 sm:mb-16">Total MODISCRIPT DOCX</h3>
-                  <div className="text-5xl sm:text-6xl lg:text-7xl font-normal text-right">2.5L</div>
+                <div className="rounded-lg p-4" style={{ backgroundColor: '#F5E6D3', border: '1px solid #D4A574' }}>
+                  <h3 className="text-base font-bold mb-8">Total MODISCRIPT DOCX</h3>
+                  <div className="text-4xl font-normal text-right">2.5L</div>
                 </div>
 
                 {/* Payment Amount */}
-                <div className="rounded-lg p-5 sm:p-6" style={{ backgroundColor: '#F5E6D3', border: '1px solid #D4A574' }}>
-                  <h3 className="text-lg sm:text-xl font-bold mb-8 sm:mb-16">Payment Amount</h3>
-                  <div className="text-4xl sm:text-5xl lg:text-6xl font-normal text-right">₹90000</div>
+                <div className="rounded-lg p-4" style={{ backgroundColor: '#F5E6D3', border: '1px solid #D4A574' }}>
+                  <h3 className="text-base font-bold mb-8">Payment Amount</h3>
+                  <div className="text-3xl font-normal text-right">₹90000</div>
                 </div>
 
                 {/* Other Region Access */}
-                <div className="rounded-lg p-5 sm:p-6" style={{ backgroundColor: '#F5E6D3', border: '1px solid #D4A574' }}>
-                  <h3 className="text-lg sm:text-xl font-bold mb-8 sm:mb-16">Other Region Access</h3>
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-normal text-right">UK, Nepal</div>
+                <div className="rounded-lg p-4" style={{ backgroundColor: '#F5E6D3', border: '1px solid #D4A574' }}>
+                  <h3 className="text-base font-bold mb-8">Other Region Access</h3>
+                  <div className="text-2xl font-normal text-right">UK, Nepal</div>
                 </div>
               </div>
             </div>
@@ -225,11 +235,11 @@ const LipiBookDashboard = () => {
               <div className="flex flex-col items-center justify-center min-h-[400px]">
                 <div className="mb-6">
                   <svg className="w-16 h-16 sm:w-20 sm:h-20" viewBox="0 0 100 100" fill="none" stroke="#8B6F47" strokeWidth="2">
-                    <rect x="20" y="15" width="60" height="70" rx="3"/>
-                    <path d="M35 40 L45 50 L65 30"/>
-                    <circle cx="35" cy="60" r="3" fill="#8B6F47"/>
-                    <circle cx="50" cy="60" r="3" fill="#8B6F47"/>
-                    <circle cx="65" cy="60" r="3" fill="#8B6F47"/>
+                    <rect x="20" y="15" width="60" height="70" rx="3" />
+                    <path d="M35 40 L45 50 L65 30" />
+                    <circle cx="35" cy="60" r="3" fill="#8B6F47" />
+                    <circle cx="50" cy="60" r="3" fill="#8B6F47" />
+                    <circle cx="65" cy="60" r="3" fill="#8B6F47" />
                   </svg>
                 </div>
                 <h3 className="text-xl sm:text-2xl lg:text-3xl font-normal text-center">
@@ -271,7 +281,10 @@ const LipiBookDashboard = () => {
                 </div>
 
                 <div className="flex justify-center">
-                  <button className="bg-black text-white px-8 sm:px-12 py-2.5 sm:py-3 text-base sm:text-lg">
+                  <button
+                    className="bg-black text-white px-8 sm:px-12 py-2.5 sm:py-3 text-base sm:text-lg"
+                    onClick={handleReport}
+                  >
                     Report
                   </button>
                 </div>
@@ -282,20 +295,17 @@ const LipiBookDashboard = () => {
       </div>
 
       {/* Footer */}
-       <footer className="bg-[#e8d7c3] px-4 sm:px-6 py-4 sm:py-5 border-t border-[#d4c4b0]">
-  <div className="max-w-7xl mx-auto flex items-center justify-between">
-    <div className="flex-1"></div>
-    <p className="text-[#2c1810] text-xs sm:text-sm md:text-base lg:text-lg text-center flex-1">
-      भारत इतिहास संशोधक मंडळ, पुणे | LipiBook
-    </p>
-    <div className="flex-1 flex justify-end">
-      <button className="text-[#5c3d2e] hover:text-[#8b4513] transition-colors duration-200">
-        <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
-      </button>
-    </div>
-  </div>
-</footer>
-
+      <footer className="bg-[#e8d7c3] px-3 py-3 border-t border-[#d4c4b0] flex-shrink-0">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="w-6 h-6"></div>
+          <p className="text-[#2c1810] text-xs sm:text-sm md:text-base text-center flex-1">
+            भारत इतिहास संशोधक मंडळ, पुणे | LipiBook
+          </p>
+          <button className="text-[#5c3d2e] hover:text-[#8b4513] transition-colors duration-200">
+            <HelpCircle className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
+        </div>
+      </footer>
     </div>
   );
 };

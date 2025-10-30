@@ -23,47 +23,40 @@ const LipiBookForgotPassword = () => {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#E8D5BA' }}>
       {/* Header */}
-                  <header className="px-4 py-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F5E6D3' }}>
-                   <div className="flex items-center justify-between">
+                 <header className="w-full px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between bg-[#F5E6D3] border-b border-[#d4c4b0] flex-shrink-0">
                      <div className="flex items-center gap-2 sm:gap-4">
-                       <Image
-                         src="/images/rgstc.png"
-                         alt="Play Icon"
-                         width={48}
-                         height={48}
-                         className="w-12 h-12 sm:w-16 sm:h-16"
-                       />
-                     </div>
-                     <h1 className="text-sm sm:text-xl lg:text-2xl xl:text-3xl font-bold text-center flex-1 px-2 sm:px-4">
-                       RGSTC MUMBAI IN COLLABORATION WITH VIT, PUNE
-                     </h1>
-                     <Image
-                       src="/images/VIT.png"
-                       alt="Shield Icon"
-                       width={48}
-                       height={48}
-                       className="w-12 h-12 sm:w-16 sm:h-16"
-                     />
-                   </div>
-                 </header>
+                      <Image
+                      src="/images/rgstc.png"
+                      alt="RGSTC Logo"
+                      width={50}
+                      height={50}
+                      className="w-12 h-12 sm:w-14 sm:h-14"
+                                                  />
+                      </div>
+                      <h1 className="flex-1 text-center text-black text-lg sm:text-xl lg:text-2xl font-bold px-2 sm:px-4">
+                      RGSTC MUMBAI IN COLLABORATION WITH VIT, PUNE
+                      </h1>
+                      <Image
+                      src="/images/VIT.png"
+                      alt="VIT Logo"
+                      width={50}
+                      height={50}
+                      className="w-12 h-12 sm:w-14 sm:h-14"
+                      />
+                  </header>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-8">
-                 {/* Logo */}
-          <div className="text-center mb-6 sm:mb-8">
-             <div className="inline-block">
-              <div className="flex items-center justify-center gap-4">
-                <Image
-                  src="/images/lipibook.png"
-                  alt="LipiBook Logo"
-                  width={300}
-                  height={120}
-                  priority
-                  className="w-auto h-auto"
-                />
-              </div>
-            </div>
-          </div>
+                  {/* Logo */}
+                        <div className="text-center mb-4 sm:mb-6">
+                          <Image
+                            src="/images/lipibook.png"
+                            alt="LipiBook Logo"
+                            width={120}
+                            height={100}
+                            className="mx-auto w-auto h-auto"
+                          />
+                        </div>
 
         {!isSubmitted ? (
           // Forgot Password Form
@@ -101,7 +94,7 @@ const LipiBookForgotPassword = () => {
             <h2 className="text-xl sm:text-2xl font-bold mb-8">COMMITTEE LOGIN SYSTEM</h2>
             
             <p className="text-lg sm:text-xl italic mb-8" style={{ fontFamily: 'Georgia, serif' }}>
-              DEAR COMMITTEE RESET LINK SENT<br />SUCCESSFULLY.
+              DEAR MEMBER RESET LINK SENT<br />SUCCESSFULLY.
             </p>
 
             <div className="flex justify-center">
@@ -109,7 +102,7 @@ const LipiBookForgotPassword = () => {
                 onClick={handleBackToLogin}
                 className="bg-black text-white px-8 sm:px-12 py-2.5 text-sm sm:text-base font-semibold hover:bg-gray-800 transition-colors"
               >
-                BACK TO LOGIN
+                SEE RESET PAGE
               </button>
             </div>
           </div>
@@ -117,19 +110,17 @@ const LipiBookForgotPassword = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#e8d7c3] px-4 sm:px-6 py-4 sm:py-5 border-t border-[#d4c4b0]">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex-1"></div>
-          <p className="text-[#2c1810] text-xs sm:text-sm md:text-base lg:text-lg text-center flex-1">
-            भारत इतिहास संशोधक मंडळ, पुणे | LipiBook
-          </p>
-          <div className="flex-1 flex justify-end">
-            <button className="text-[#5c3d2e] hover:text-[#8b4513] transition-colors duration-200">
-              <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
-            </button>
-          </div>
-        </div>
-      </footer>
+      <footer className="bg-[#e8d7c3] px-3 py-3 border-t border-[#d4c4b0] flex-shrink-0">
+                    <div className="max-w-7xl mx-auto flex items-center justify-between">
+                      <div className="w-6 h-6"></div>
+                      <p className="text-[#2c1810] text-xs sm:text-sm md:text-base text-center flex-1">
+                        भारत इतिहास संशोधक मंडळ, पुणे | LipiBook
+                      </p>
+                      <button className="text-[#5c3d2e] hover:text-[#8b4513] transition-colors duration-200">
+                        <HelpCircle className="w-5 h-5 sm:w-6 sm:h-6" />
+                      </button>
+                    </div>
+                  </footer>
     </div>
   );
 };
